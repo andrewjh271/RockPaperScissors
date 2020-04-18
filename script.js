@@ -1,67 +1,117 @@
 function computerPlay(){
-  let random = Math.floor(Math.random()*3);
-  switch(random){
-    case(0):
-      return "Rock";
+  return Math.floor(Math.random()*3); //0=rock; 1=paper; 2=scissors;
+}
+function playRound(playerSelection, computerSelection) {
+  if(roundNumber==0) {
+    instructions.remove();
+    currentRound.appendChild(userImage);
+    vs.textContent = "VS";
+    currentRound.appendChild(vs);
+    currentRound.appendChild(computerImage);
+    userPoint.forEach(item => {
+      item.classList.add('far');
+      item.classList.remove('fas');
+    })
+    computerPoint.forEach(item => {
+      item.classList.add('far');
+      item.classList.remove('fas');
+    })
+  }
+  roundNumber++;
+
+  userImage.src = `./${playerSelection}.png`;
+  computerImage.src = `./${computerSelection}.png`;
+
+  switch(playerSelection){
+    case(0)://rock
+      (computerSelection == 2) ? game("You win! Rock beats Scissors!")
+      :(computerSelection == 1) ? game("You lose! Paper beats Rock!") 
+      : game("It's a tie!");
       break;
-    case(1):
-      return "Paper";
+    case(1)://paper
+      (computerSelection == 0) ? game("You win! Paper beats Rock!")
+      :(computerSelection == 2) ? game("You lose! Scissors beats Paper!") 
+      : game("It's a tie!");
+      break;
+    case(2)://scissors
+      (computerSelection == 1) ? game("You win! Scissors beats paper!")
+      :(computerSelection == 0) ? game("You lose! Rock beats scissors!") 
+      : game("It's a tie!");
       break;
     default:
-      return "Scissors";
+      console.error('playerSelection did not equal 0, 1, or 2');
   }
 }
-function playRound(playerSelection, computerSelection){
-  switch(playerSelection.toLowerCase()){
-    case("rock"):
-      return (computerSelection.toLowerCase() == "scissors") ? "You win! Rock beats Scissors!"
-            :(computerSelection.toLowerCase() == "paper") ? "You lose! Paper beats Rock!" 
-            : "It's a tie!";
-      break;
-    case("paper"):
-      return (computerSelection.toLowerCase() == "rock") ? "You win! Paper beats Rock!"
-            :(computerSelection.toLowerCase() == "scissors") ? "You lose! Scissors beats Paper!" 
-            : "It's a tie!";
-      break;
-    case("scissors"):
-      return (computerSelection.toLowerCase() == "paper") ? "You win! Scissors beats paper!"
-            :(computerSelection.toLowerCase() == "rock") ? "You lose! Rock beats scissors!" 
-            : "It's a tie!";
-      break;
-    default:
-      return "Something went wrong.";
+function game(roundResult){
+  const roundDescription = document.querySelector('#round-description');
+  roundDescription.textContent = `Round ${roundNumber}: ${roundResult}`
+  userImage.style.border = '4px solid transparent';
+  computerImage.style.border = '4px solid transparent';
+  
+
+  if(roundResult.indexOf("win") !== -1){
+    userScore++;
+    userImage.style.border = '4px solid red';
+    userPoint[userScore-1].classList.add('fas');
+    userPoint[userScore-1].classList.remove('far');
+  }else if(roundResult.indexOf("lose") !== -1){
+    computerScore++;
+    computerImage.style.border = '4px solid red';
+    computerPoint[computerScore-1].classList.add('fas');
+    computerPoint[computerScore-1].classList.remove('far');
   }
-}
-function game(){
-  let i;
-  let userScore = 0;
-  let computerScore = 0;
-  for(i=0; i<5; i++){
-    let playerSelection = prompt("Choose Rock, Paper, or Scissors.");
-    let result = playRound(playerSelection, computerPlay());
-    if(result.indexOf("win") !== -1){
-      userScore++;
-      console.log(`The user won Round ${i+1}.`)
-    }else if(result.indexOf("lose") !== -1){
-      computerScore++;
-      console.log(`The computer won Round ${i+1}.`)
-    }
-    else if(result.indexOf("tie") !== -1){
-      console.log(`Round ${i+1} was a tie.`);
-    }else{
-      console.error("Incorrect input.");
-      alert("Please try again. Your options are Rock, Paper, or Scissors.");
-      i--; //replay this round
-    }
-  }
-  let ties = 5-userScore-computerScore;
-  let grammar = (ties != 1) ? "games" : "game";
-  if(userScore>computerScore){
-    console.log(`The user wins ${userScore} to ${computerScore}, with ${ties} tied ${grammar}!`);
-  }else if(computerScore>userScore){
-    console.log(`The computer wins ${computerScore} to ${userScore}, with ${ties} tied ${grammar}!`);
+  else if(roundResult.indexOf("tie") !== -1){
+    //do nothing
   }else{
-    console.log(`It's a tie! Both players had a score of ${userScore}, with ${ties} tied ${grammar}!`);
+    console.error("Incorrect input.");
   }
+
+  if(userScore==5 || computerScore==5) {
+    if(userScore==5) instructions.textContent = "You win! Make your choice to play again...";
+    if(computerScore==5) instructions.textContent = "You lose! Make your choice to play again...";
+    roundNumber = 0;
+    userScore = 0;
+    computerScore = 0;
+    currentRound.appendChild(instructions);
+    currentRound.removeChild(userImage);
+    currentRound.removeChild(vs);
+    currentRound.removeChild(computerImage);
+    roundDescription.textContent = "";
+  }   
 }
-game();
+
+
+
+const rockButton = document.querySelector('#rock-button');
+const paperButton = document.querySelector('#paper-button');
+const scissorsButton = document.querySelector('#scissors-button');
+
+const userPoint = [];
+userPoint[0] = document.querySelector('#user-point1');
+userPoint[1] = document.querySelector('#user-point2');
+userPoint[2] = document.querySelector('#user-point3');
+userPoint[3] = document.querySelector('#user-point4');
+userPoint[4] = document.querySelector('#user-point5');
+const computerPoint = [];
+computerPoint[0] = document.querySelector('#computer-point1');
+computerPoint[1] = document.querySelector('#computer-point2');
+computerPoint[2] = document.querySelector('#computer-point3');
+computerPoint[3] = document.querySelector('#computer-point4');
+computerPoint[4] = document.querySelector('#computer-point5');
+
+let roundNumber = 0;
+let userScore = 0;
+let computerScore = 0;
+
+let currentRound = document.querySelector('#current-round');
+let instructions = document.querySelector('#instructions');
+let userImage = document.createElement('img');
+userImage.classList.add('round-images');
+let computerImage = document.createElement('img');
+computerImage.classList.add('round-images');
+let vs = document.createElement('span');
+vs.setAttribute('id', 'vs');
+
+rockButton.onclick = function(){playRound(0, computerPlay())};
+paperButton.onclick = function(){playRound(1, computerPlay())};
+scissorsButton.onclick = function(){playRound(2, computerPlay())};
