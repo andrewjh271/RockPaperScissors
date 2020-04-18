@@ -66,22 +66,25 @@ function game(roundResult) {
   }else{
     console.error("Incorrect input");
   }
-
+  
   if(userScore==5 || computerScore==5) {
-    if(userScore==5) instructions.textContent = "You win! Make your choice to play again...";
-    if(computerScore==5) instructions.textContent = "You lose! Make your choice to play again...";
-    roundNumber = 0;
-    userScore = 0;
-    computerScore = 0;
-    currentRound.appendChild(instructions);
-    currentRound.removeChild(userImage);
-    currentRound.removeChild(vs);
-    currentRound.removeChild(computerImage);
-    roundDescription.textContent = "";
-  }   
+    let delayInMilliseconds = 1100;
+    setTimeout(function() {
+      if(userScore==5) instructions.textContent = "You win! Make your choice to play again...";
+      if(computerScore==5) instructions.textContent = "You lose! Make your choice to play again...";
+      roundNumber = 0;
+      userScore = 0;
+      computerScore = 0;
+      currentRound.appendChild(instructions);
+      currentRound.removeChild(userImage);
+      currentRound.removeChild(vs);
+      currentRound.removeChild(computerImage);
+      roundDescription.textContent = "";
+    }, delayInMilliseconds);
+  }
 }
 
-const rockButton = document.querySelector('#rock-button');
+let rockButton = document.querySelector('#rock-button');
 const paperButton = document.querySelector('#paper-button');
 const scissorsButton = document.querySelector('#scissors-button');
 
