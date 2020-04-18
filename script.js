@@ -1,6 +1,7 @@
-function computerPlay(){
+function computerPlay() {
   return Math.floor(Math.random()*3); //0=rock; 1=paper; 2=scissors;
 }
+
 function playRound(playerSelection, computerSelection) {
   if(roundNumber==0) {
     instructions.remove();
@@ -42,13 +43,13 @@ function playRound(playerSelection, computerSelection) {
       console.error('playerSelection did not equal 0, 1, or 2');
   }
 }
-function game(roundResult){
+
+function game(roundResult) {
   const roundDescription = document.querySelector('#round-description');
   roundDescription.textContent = `Round ${roundNumber}: ${roundResult}`
   userImage.style.border = '4px solid transparent';
   computerImage.style.border = '4px solid transparent';
   
-
   if(roundResult.indexOf("win") !== -1){
     userScore++;
     userImage.style.border = '4px solid red';
@@ -63,7 +64,7 @@ function game(roundResult){
   else if(roundResult.indexOf("tie") !== -1){
     //do nothing
   }else{
-    console.error("Incorrect input.");
+    console.error("Incorrect input");
   }
 
   if(userScore==5 || computerScore==5) {
@@ -79,8 +80,6 @@ function game(roundResult){
     roundDescription.textContent = "";
   }   
 }
-
-
 
 const rockButton = document.querySelector('#rock-button');
 const paperButton = document.querySelector('#paper-button');
@@ -115,3 +114,5 @@ vs.setAttribute('id', 'vs');
 rockButton.onclick = function(){playRound(0, computerPlay())};
 paperButton.onclick = function(){playRound(1, computerPlay())};
 scissorsButton.onclick = function(){playRound(2, computerPlay())};
+
+const roundDescription = document.querySelector('#round-description');
