@@ -1,5 +1,8 @@
 # RockPaperScissors
 
+I adapted this project to make a version I once discussed with a friend: Boot Root Glute:
+https://andrewjh271.github.io/root-boot-glute/
+
 A few challenges I encountered:
 
 button.onclick = function() or button.addEventListener('click', function());
@@ -8,10 +11,30 @@ behaviors that I didn't understand. The solutions I found on the internet were
 kind of confusing; I ended up figuring out my own: calling an unnamed function, with
 the function I actually wanted to use (with its arguments) inside of it.
 rockButton.onclick = function(){playRound(0, computerPlay())};
+*Update* I commented out this solution and used window.addEventListener instead. It made it so I didn't
+have to call the function for each button (though I did need to specify each's data set in the .html doc).
+More importantly, it allowed me to use a named function, so I could temporarily disable it after the 
+match completes.
+
+
+I wanted to find some way to use ${variable} type language to make another variable. eval may have been one option
+but the Mozilla developer page said not to use it as it is a security risk. I came across someone else's answer, 
+that this isn't necessary and arrays are usually always what you should do instead. Sure enough that worked well:
+userPoint[userScore-1].classList.add('fas');
 
 Being aware of box-sizing. Adding a border to the winning image created slight movement inside that flexbox. The best solution I found was just having a border all the time, but transparent when I didn't want it.
 
 I tried to steer away from using px, in favor of vh and vw. I unthinkingly set a lot of height parameters in terms of vw, which looked good for the current size of my window, but made the page less responsive to height changes, and they layout didn't work for a window with a higher than average width:height ratio. I will be sure to set height parameters to vh, not vw.
+
+html, body {
+  margin:0;padding:0;height:100%;
+}
+along with...
+  width: calc(100vw - 4px);
+  height: calc(100vh - 4px);
+(if my border is 2px all around)
+seems to be a good way to take up the whole page without adding scroll bars. I had to remember that my #container
+also needed to subtract 4px when I set the size with vw and vh.
 
 I kept forgetting that multiple class declarations go in the same statement:
 <i class="far fa-circle point point5" id="computer-point5"></i>
