@@ -6,13 +6,13 @@ https://andrewjh271.github.io/root-boot-glute/
 A few challenges I encountered:
 
 button.onclick = function() or button.addEventListener('click', function());
-Apparently the function cannot have arguments. Adding arguments created errors and strange
+It looks like a function to me, but it's an object. Adding arguments created errors and strange
 behaviors that I didn't understand. The solutions I found on the internet were 
 kind of confusing; I ended up figuring out my own: calling an unnamed function, with
 the function I actually wanted to use (with its arguments) inside of it.
 rockButton.onclick = function(){playRound(0, computerPlay())};
 *Update* I commented out this solution and used window.addEventListener instead. It made it so I didn't
-have to call the function for each button (though I did need to specify each's data set in the .html doc).
+have to call the function for each button (though I did need to specify each's dataset in the .html doc).
 More importantly, it allowed me to use a named function, so I could temporarily disable it after the 
 match completes.
 
