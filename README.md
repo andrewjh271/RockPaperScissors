@@ -31,14 +31,14 @@ A few challenges I encountered:
   ```
   along with...
 
-```css
-width: calc(100vw - 4px);
+  ```css
+  width: calc(100vw - 4px);
   height: calc(100vh - 4px);
   /*(if my border is 2px all around)*/
   ```
-  
+
   seems to be a good way to take up the whole page without adding scroll bars. I had to remember that my `#container` also needed to subtract 4px when I set the size with vw and vh.
-  
+
 - I kept forgetting that multiple class declarations go in the same statement:
   `<i class="far fa-circle point point5" id="computer-point5"></i>`
 
@@ -75,3 +75,5 @@ width: calc(100vw - 4px);
 I made a sketch on paper of what I wanted before starting to program. I think it helped a lot to make my html clear and simple, and eliminated some of the ad hoc character of my Google Homepage project.
 
 The original project using console.log and alerts is in index-original.
+
+-Andrew Hayhurst
