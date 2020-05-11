@@ -1,4 +1,5 @@
 # RockPaperScissors
+https://andrewjh271.github.io/RockPaperScissors/
 
 Created as part of the curriculum for The Odin Project. [Live Page](https://andrewjh271.github.io/RockPaperScissors/)
 
@@ -13,7 +14,7 @@ The user and computer both have a scoreboard with five circles that become fille
 A few challenges I encountered:
 
 - `button.onclick = function()` and `button.addEventListener('click', function());`
-  Apparently the function cannot have arguments. Adding arguments created errors and strange behaviors that I didn't understand. The solutions I found on the internet were kind of confusing; I ended up figuring out my own: calling an unnamed function, with the function I actually wanted to use (with its arguments) inside of it.
+  It looks like a function, but I guess it's an object. Adding arguments created errors and strange behaviors that I didn't understand. The solutions I found on the internet were kind of confusing; I ended up figuring out my own: calling an unnamed function, with the function I actually wanted to use (with its arguments) inside of it.
   `rockButton.onclick = function(){playRound(0, computerPlay())};`
   *Update*: I commented out this solution and used window.addEventListener instead. It made it so I didn't have to call the function for each button (though I did need to specify each's data set in the .html file). More importantly, it allowed me to use a named function, so I could temporarily disable it after the match completes.
   
